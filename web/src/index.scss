@@ -1,0 +1,34 @@
+@use "tailwindcss";
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+}
+
+.fade-in {
+  animation: fadeIn ease 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.lazy-img {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.main-box {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
