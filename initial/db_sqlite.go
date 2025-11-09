@@ -4,6 +4,8 @@ import (
 	"go-web-template/internal/global"
 	"go-web-template/internal/model/database"
 	"go-web-template/internal/utils"
+	"os"
+	"path/filepath"
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/sqlite"
@@ -11,7 +13,20 @@ import (
 )
 
 func InitDBSqlite() {
-	db, err := gorm.Open(sqlite.Open("data.db"), &gorm.Config{})
+	execPath, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+
+	execPath, err = filepath.EvalSymlinks(execPath)
+	if err != nil {
+		panic(err)
+	}
+
+	execDir := filepath.Dir(execPath)
+	dbPath := filepath.Join(execDir, "data.db")
+
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
 		logrus.Fatalln("Failed to connect database", err)
 	}

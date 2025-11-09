@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 
 	"go-web-template/initial"
@@ -56,10 +57,13 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
-		dir, err := os.Getwd()
+		execPath, err := os.Executable()
 		cobra.CheckErr(err)
+		execPath, err = filepath.EvalSymlinks(execPath)
+		cobra.CheckErr(err)
+		execDir := filepath.Dir(execPath)
 
-		viper.AddConfigPath(dir)
+		viper.AddConfigPath(execDir)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName("config")
 	}
