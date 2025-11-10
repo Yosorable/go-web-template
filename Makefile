@@ -35,5 +35,4 @@ dev-backend:
 	go run .
 
 dev-frontend:
-	cd web
-	npm run dev
+	cd web && npm run dev
